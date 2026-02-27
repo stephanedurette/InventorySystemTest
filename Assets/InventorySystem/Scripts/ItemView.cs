@@ -11,11 +11,23 @@ public class ItemView : MonoBehaviour
 
     public void Bind(Item item)
     {
+        BoundItem = item;
+        iconImage.sprite = BoundItem.Model.Icon;
+        BoundItem.OnCountChanged += OnBoundItemAmountChanged;
+    }
 
+    private void OnBoundItemAmountChanged(int previousAmount, int newAmount) { 
+        countText.text = newAmount.ToString();
     }
 
     public void Unbind()
     {
+        if (BoundItem == null) return;
+        BoundItem.OnCountChanged -= OnBoundItemAmountChanged;
+    }
 
+    private void OnDisable()
+    {
+        Unbind();
     }
 }
