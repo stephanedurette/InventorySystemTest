@@ -6,6 +6,7 @@ Inventory Holder - Monobehaviour
 Inventory
 	OnUpdated
 	Item[] Items
+	int maxstackcount
 
 Item
 	Inventory Owner
@@ -15,8 +16,6 @@ Item
 
 ItemModel
 	Icon
-	MaxStackCount
-	MaxCount
 	Description
 
 ItemView
