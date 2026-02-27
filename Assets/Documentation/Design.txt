@@ -1,0 +1,28 @@
+Use MVC for Items, Inventory
+
+Inventory Holder - Monobehaviour
+	Item[] starting Items
+
+Inventory
+	OnUpdated
+	Item[] Items
+
+Item
+	Inventory Owner
+	OnCountUpdated
+	ItemModel
+	Count
+
+ItemModel
+	Icon
+	MaxStackCount
+	MaxCount
+	Description
+
+ItemView
+	Bind(Item)
+	Unbind()
+
+InventoryView
+	Bind(Inventory)
+	Unbind
