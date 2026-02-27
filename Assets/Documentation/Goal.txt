@@ -1,0 +1,8 @@
+Create a backpack inventory system like in arknights
+Can open a window, move items around, move items from one inventory to the next
+Buy and Sell Items
+Tooltips show descriptions
+
+Make a game out of this
+
+Upcoming Factory Game Uses This
