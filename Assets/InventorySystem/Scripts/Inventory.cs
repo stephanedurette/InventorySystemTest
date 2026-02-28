@@ -28,15 +28,15 @@ public class Inventory
                 int amountToAdd = Math.Min(Model.MaxStackCount - items[index].Count, remainingAmountToAdd);
                 AddItem(item, amountToAdd, index);
                 remainingAmountToAdd -= amountToAdd;
-                
-                if (remainingAmountToAdd == 0) 
+
+                if (remainingAmountToAdd == 0)
                     return;
             }
         }
 
         while (remainingAmountToAdd > 0)
         {
-            if(GetNextEmptyPosition(out int index))
+            if (GetNextEmptyPosition(out int index))
             {
                 int amountToAdd = Math.Min(Model.MaxStackCount, remainingAmountToAdd);
                 AddItem(item, amountToAdd, index);
@@ -54,12 +54,29 @@ public class Inventory
 
     public void AddItem(Item item, int amount, int index)
     {
-        //if new item bind the change function
+        if (items[index] == null)
+        {
+            Item newItem = new Item(item.Model);
+            newItem.OnCountChanged += OnItemCountChanged;
+            newItem.Count = Math.Min(amount, Model.MaxStackCount);
+            items[index] = newItem;
+            OnItemAdded?.Invoke(index, newItem);
+        }
+        else
+        {
+            int amountToAdd = Math.Min(amount, Model.MaxStackCount - items[index].Count);
+            items[index].Count += amountToAdd;
+        }
     }
 
     public void RemoveItem(Item item, int amount, int index)
     {
         //unbind the item change function if amount < 0
+    }
+
+    private void OnItemCountChanged(int oldValue, int newValue)
+    {
+        //nothing for now
     }
 
     private bool GetItemIndices(Item item, out List<int> indices)
@@ -93,7 +110,7 @@ public class Inventory
     private int GetTotalItemCount(Item item)
     {
         int count = 0;
-        foreach(var i in items)
+        foreach (var i in items)
         {
             if (i.Model == item.Model) count += i.Count;
         }
