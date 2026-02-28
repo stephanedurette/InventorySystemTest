@@ -48,15 +48,16 @@ public class InventoryView : MonoBehaviour
 
     private void OnEnable()
     {
-        InitializeWindow();
+        StartCoroutine(InitializeWindowCoroutine());
     }
 
-    private void InitializeWindow()
+    private IEnumerator InitializeWindowCoroutine()
     {
+        //wait for dependencies to be injected, since construct happens before onenable
+        yield return new WaitUntil(() => uiElementFactory != null);
         Debug.Log(uiElementFactory);
         //uiElementFactory.CreateInventorySlot(gridLayoutGroup.GetComponent<RectTransform>());
         StartCoroutine(SetScrollbarCoroutine());
-        
     }
 
     private IEnumerator SetScrollbarCoroutine()
