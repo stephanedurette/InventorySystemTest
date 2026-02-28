@@ -892,6 +892,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5420101264362867621}
   - component: {fileID: 6651502860286541749}
+  - component: {fileID: 3437973186545974483}
   m_Layer: 5
   m_Name: InventoryView
   m_TagString: Untagged
@@ -936,6 +937,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridLayoutGroup: {fileID: 7763747661124205886}
   scrollbar: {fileID: 789049713604666263}
+--- !u!114 &3437973186545974483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6855032985367130626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 717a02054ef2699498e6bd4234fd7995, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _containerSource: 0
 --- !u!1 &8495738617276169006
 GameObject:
   m_ObjectHideFlags: 0

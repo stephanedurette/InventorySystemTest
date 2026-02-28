@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 public class InventoryView : MonoBehaviour
 {
@@ -10,6 +11,14 @@ public class InventoryView : MonoBehaviour
     [SerializeField] private Scrollbar scrollbar;
 
     public Inventory BoundInventory { get; private set; }
+
+    private UIElementFactory uiElementFactory;
+
+    [Inject]
+    public void Construct(UIElementFactory uIElementFactory)
+    {
+        this.uiElementFactory = uIElementFactory;
+    }
 
     public void Bind(Inventory inventory)
     {
@@ -44,6 +53,7 @@ public class InventoryView : MonoBehaviour
 
     private void InitializeWindow()
     {
+        Debug.Log(uiElementFactory);
         //uiElementFactory.CreateInventorySlot(gridLayoutGroup.GetComponent<RectTransform>());
         StartCoroutine(SetScrollbarCoroutine());
         
