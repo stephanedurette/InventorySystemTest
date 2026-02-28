@@ -14,7 +14,7 @@ public class UIObjectPooler : MonoBehaviour
         objectPools = new();
     }
 
-    public T SpawnObject<T>(GameObject objectToSpawn, Vector3 position)
+    public T SpawnObject<T>(GameObject objectToSpawn, Vector3 position, RectTransform parentTransform = null)
     {
         GameObject objectSourcePrefab = PrefabUtility.GetCorrespondingObjectFromOriginalSource(objectToSpawn);
 
@@ -28,7 +28,7 @@ public class UIObjectPooler : MonoBehaviour
         GameObject spawnedObject = objectPools[objectToSpawn].Get();
 
         //Set Transform
-        spawnedObject.GetComponent<RectTransform>().SetParent(uiParentTransform, false);
+        spawnedObject.GetComponent<RectTransform>().SetParent(parentTransform != null ? parentTransform : uiParentTransform, false);
 
         //Set Position
         spawnedObject.GetComponent<RectTransform>().position = Camera.main.WorldToScreenPoint(position);
