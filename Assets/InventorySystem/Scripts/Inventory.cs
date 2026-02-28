@@ -5,7 +5,7 @@ public class Inventory
 {
     public InventoryModel Model { get; private set; }
 
-    public Action<int, Item> OnItemRemoved;
+    public Action<int> OnItemRemoved;
 
     public Action<int, Item> OnItemAdded;
 
@@ -47,10 +47,21 @@ public class Inventory
 
     public void RemoveItem(Item item, int amount)
     {
+        int remainingAmountToRemove = amount;
 
+        if (GetItemIndices(item, out var indices))
+        {
+            foreach (var index in indices)
+            {
+                int amountToRemove = Math.Min(items[index].Count, remainingAmountToRemove);
+                RemoveItem(item, amountToRemove, index);
+                remainingAmountToRemove -= amountToRemove;
+
+                if (remainingAmountToRemove == 0)
+                    return;
+            }
+        }
     }
-
-
 
     public void AddItem(Item item, int amount, int index)
     {
@@ -71,7 +82,13 @@ public class Inventory
 
     public void RemoveItem(Item item, int amount, int index)
     {
-        //unbind the item change function if amount < 0
+        items[index].Count -= amount;
+        if (items[index].Count <= 0)
+        {
+            items[index].OnCountChanged -= OnItemCountChanged;
+            items[index] = null;
+            OnItemRemoved?.Invoke(index);
+        }
     }
 
     private void OnItemCountChanged(int oldValue, int newValue)
