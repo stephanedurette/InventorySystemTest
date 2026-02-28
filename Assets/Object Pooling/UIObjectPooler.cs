@@ -45,6 +45,8 @@ public class UIObjectPooler : MonoBehaviour
 
     private ObjectPool<GameObject> InitializePool(GameObject prefab)
     {
+        prefab.SetActive(false);
+
         ObjectPool<GameObject> pool = new(
             OnCreate,
             (p) => p.SetActive(true),
