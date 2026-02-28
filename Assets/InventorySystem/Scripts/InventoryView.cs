@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class InventoryView : MonoBehaviour
 {
     [Header("References")]
+    //[SerializeField] private UIElementFactory uiElementFactory;
     [SerializeField] private GridLayoutGroup gridLayoutGroup;
     [SerializeField] private Scrollbar scrollbar;
 
@@ -43,9 +44,9 @@ public class InventoryView : MonoBehaviour
 
     private void InitializeWindow()
     {
-        //spawn slots and initialize them
+        //uiElementFactory.CreateInventorySlot(gridLayoutGroup.GetComponent<RectTransform>());
         StartCoroutine(SetScrollbarCoroutine());
-        //populate slots with inventory
+        
     }
 
     private IEnumerator SetScrollbarCoroutine()
