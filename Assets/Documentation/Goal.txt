@@ -7,3 +7,10 @@ Sounds when grabbing and placing
 Make a game out of this
 
 Upcoming Factory Game Uses This
+
+Fully Dynamic, responds to
+	Item addition / removal
+	Inventory minimums / maximums changing
+	Column count and total capacity changes
+
+Make a demo and post it
