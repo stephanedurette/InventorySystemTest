@@ -45,6 +45,7 @@ public class UIObjectPooler : MonoBehaviour
 
     private ObjectPool<GameObject> InitializePool(GameObject prefab)
     {
+        //set source prefab to inactive to avoid the onenable triggers until we pull from the pool
         prefab.SetActive(false);
 
         ObjectPool<GameObject> pool = new(
@@ -71,5 +72,14 @@ public class UIObjectPooler : MonoBehaviour
             Object.DestroyImmediate(obj);
         else
             Object.Destroy(obj);
+    }
+
+    private void OnDestroy()
+    {
+        //set underlying prefabs active to true to avoid messing with the editor
+        foreach(var kp in objectPools)
+        {
+            kp.Key.SetActive(true);
+        }
     }
 }
