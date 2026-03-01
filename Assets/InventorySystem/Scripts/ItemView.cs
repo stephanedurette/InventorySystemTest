@@ -12,7 +12,10 @@ public class ItemView : MonoBehaviour
     public void Bind(Item item)
     {
         BoundItem = item;
+
         iconImage.sprite = BoundItem.Model.Icon;
+        countText.text = BoundItem.Count.ToString();
+
         BoundItem.OnCountChanged += OnBoundItemAmountChanged;
     }
 

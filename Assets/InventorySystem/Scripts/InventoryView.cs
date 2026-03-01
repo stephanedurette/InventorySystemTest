@@ -78,7 +78,7 @@ public class InventoryView : MonoBehaviour
 
             if (item == null) continue;
 
-            ItemView newItemView = uiElementFactory.CreateItemView(slot.transform as RectTransform, item);
+            ItemView newItemView = uiElementFactory.CreateItemView(slot.ItemParentTransform, item);
         }
     }
 

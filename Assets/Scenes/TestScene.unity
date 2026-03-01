@@ -1322,6 +1322,13 @@ MonoBehaviour:
   NpcInventoryPosition: {fileID: 828564114}
   playerInventoryModel: {fileID: 11400000, guid: 5c371a293a74c934fb10003f8ed4d378, type: 2}
   npcInventoryModel: {fileID: 11400000, guid: 206e6f856d0867341b1141305697f533, type: 2}
+  playerStartingItems:
+  - Model: {fileID: 11400000, guid: d0cabd875d269a64e81902598a6f02fe, type: 2}
+    Count: 2
+  - Model: {fileID: 0}
+    Count: 0
+  - Model: {fileID: 11400000, guid: d0cabd875d269a64e81902598a6f02fe, type: 2}
+    Count: 1
 --- !u!1 &2141543396
 GameObject:
   m_ObjectHideFlags: 0
