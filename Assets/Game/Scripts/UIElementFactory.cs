@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 using Zenject;
 
 public class UIElementFactory : MonoBehaviour
@@ -6,6 +7,7 @@ public class UIElementFactory : MonoBehaviour
     [Header("Prefabs")]
     [SerializeField] private GameObject inventoryViewPrefab;
     [SerializeField] private GameObject inventorySlotPrefab;
+    [SerializeField] private GameObject itemViewPrefab;
 
     private UIObjectPooler pooler;
 
@@ -25,5 +27,12 @@ public class UIElementFactory : MonoBehaviour
     public InventorySlot CreateInventorySlot(RectTransform parent)
     {
         return pooler.SpawnObject<InventorySlot>(inventorySlotPrefab, Vector2.zero, parent);
+    }
+
+    public ItemView CreateItemView(RectTransform parent, Item boundItem)
+    {
+        var obj = pooler.SpawnObject<ItemView>(itemViewPrefab, Vector2.zero, parent);
+        obj.Bind(boundItem);
+        return obj;
     }
 }

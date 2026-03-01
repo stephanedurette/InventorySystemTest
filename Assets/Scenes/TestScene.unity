@@ -544,6 +544,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryViewPrefab: {fileID: 6855032985367130626, guid: 76c70af49b6cfb94aaed90da7dc8f314, type: 3}
   inventorySlotPrefab: {fileID: 8807443268659213624, guid: bbf99a96732b01c4eb96ad70c848a152, type: 3}
+  itemViewPrefab: {fileID: 2849315135026612374, guid: 000753af9f0044848bcd9c23e0c529dc, type: 3}
 --- !u!1 &828564113
 GameObject:
   m_ObjectHideFlags: 0

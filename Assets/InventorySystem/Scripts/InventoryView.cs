@@ -64,10 +64,22 @@ public class InventoryView : MonoBehaviour
     {
         SetGridCellSize();
         CreateInventorySlots();
-
-        //add itemviews to slots
+        AssignItemsToSlots();
 
         scrollbar.value = 1;
+    }
+
+    private void AssignItemsToSlots()
+    {
+        for (int i = 0; i < BoundInventory.Items.Length; i++)
+        {
+            var item = BoundInventory.Items[i];
+            var slot = inventorySlots[i];
+
+            if (item == null) continue;
+
+            ItemView newItemView = uiElementFactory.CreateItemView(slot.transform as RectTransform, item);
+        }
     }
 
     private void SetGridCellSize()

@@ -11,6 +11,8 @@ public class Inventory
 
     private Item[] items;
 
+    public Item[] Items => items;
+
     public Inventory(InventoryModel model)
     {
         this.Model = model;
