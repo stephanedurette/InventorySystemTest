@@ -62,25 +62,33 @@ public class InventoryView : MonoBehaviour
 
     private void InitializeWindow()
     {
-        inventorySlots = new InventorySlot[BoundInventory.Model.Size];
+        SetGridCellSize();
+        CreateInventorySlots();
 
-        gridLayoutGroup.constraintCount = BoundInventory.Model.ColumnCount;
+        //add itemviews to slots
 
-        //set slot size
-
-        for (int i = 0; i < BoundInventory.Model.Size; i++) {
-            var slot = uiElementFactory.CreateInventorySlot(gridLayoutGroup.GetComponent<RectTransform>());
-            inventorySlots[i] = slot;
-        }
-
-        StartCoroutine(SetScrollbarCoroutine());
+        scrollbar.value = 1;
     }
 
-    private IEnumerator SetScrollbarCoroutine()
+    private void SetGridCellSize()
     {
-        //need to do this after UI calculations
-        yield return new WaitForEndOfFrame();
-        scrollbar.value = 1;
+        gridLayoutGroup.constraintCount = BoundInventory.Model.ColumnCount;
+
+        float widthWithoutPadding = (gridLayoutGroup.transform as RectTransform).rect.width - gridLayoutGroup.padding.right - gridLayoutGroup.padding.left;
+        float totalSpacing = (gridLayoutGroup.constraintCount - 1) * gridLayoutGroup.spacing.x;
+        float slotSize = (widthWithoutPadding - totalSpacing) / gridLayoutGroup.constraintCount;
+
+        gridLayoutGroup.cellSize = Vector2.one * slotSize;
+    }
+
+    private void CreateInventorySlots()
+    {
+        inventorySlots = new InventorySlot[BoundInventory.Model.Size];
+        for (int i = 0; i < BoundInventory.Model.Size; i++)
+        {
+            var slot = uiElementFactory.CreateInventorySlot(gridLayoutGroup.transform as RectTransform);
+            inventorySlots[i] = slot;
+        }
     }
 
     private void OnDisable()
