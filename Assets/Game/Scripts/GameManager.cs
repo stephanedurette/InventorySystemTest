@@ -5,8 +5,20 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private Transform playerInventoryPosition;
     [SerializeField] private Transform NpcInventoryPosition;
+    [SerializeField] private InventoryModel playerInventoryModel;
+    [SerializeField] private InventoryModel npcInventoryModel;
 
     private UIElementFactory uiFactory;
+
+    private Inventory playerInventory;
+
+    private Inventory npcInventory;
+
+    private void Awake()
+    {
+        playerInventory = new(playerInventoryModel);
+        npcInventory = new(npcInventoryModel);
+    }
 
     [Inject]
     public void Construct(UIElementFactory uiFactory)
@@ -16,11 +28,11 @@ public class GameManager : MonoBehaviour
 
     public void OpenPlayerInventoryClicked()
     {
-        uiFactory.CreateInventoryWindow(playerInventoryPosition.position);
+        uiFactory.CreateInventoryWindow(playerInventoryPosition.position, playerInventory);
     }
 
     public void OpenNPCInventoryClicked()
     {
-        uiFactory.CreateInventoryWindow(NpcInventoryPosition.position);
+        uiFactory.CreateInventoryWindow(NpcInventoryPosition.position, npcInventory);
     }
 }

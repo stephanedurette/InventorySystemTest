@@ -14,6 +14,8 @@ public class InventoryView : MonoBehaviour
 
     private UIElementFactory uiElementFactory;
 
+    private InventorySlot[] inventorySlots;
+
     [Inject]
     public void Construct(UIElementFactory uIElementFactory)
     {
@@ -25,6 +27,8 @@ public class InventoryView : MonoBehaviour
         BoundInventory = inventory;
         inventory.OnItemAdded += OnItemAdded;
         inventory.OnItemRemoved += OnItemRemoved;
+
+        InitializeWindow();
     }
 
     public void Unbind()
@@ -33,6 +37,8 @@ public class InventoryView : MonoBehaviour
             BoundInventory.OnItemAdded -= OnItemAdded;
             BoundInventory.OnItemRemoved -= OnItemRemoved;
             BoundInventory = null;
+
+            CleanupWindow();
         }
     }
 
@@ -46,17 +52,27 @@ public class InventoryView : MonoBehaviour
 
     }
 
-    private void OnEnable()
+    private void CleanupWindow()
     {
-        StartCoroutine(InitializeWindowCoroutine());
+        foreach (var slot in inventorySlots)
+        {
+            slot.gameObject.SetActive(false);
+        }
     }
 
-    private IEnumerator InitializeWindowCoroutine()
+    private void InitializeWindow()
     {
-        //wait for dependencies to be injected, since construct happens before onenable
-        yield return new WaitUntil(() => uiElementFactory != null);
-        Debug.Log(uiElementFactory);
-        //uiElementFactory.CreateInventorySlot(gridLayoutGroup.GetComponent<RectTransform>());
+        inventorySlots = new InventorySlot[BoundInventory.Model.Size];
+
+        gridLayoutGroup.constraintCount = BoundInventory.Model.ColumnCount;
+
+        //set slot size
+
+        for (int i = 0; i < BoundInventory.Model.Size; i++) {
+            var slot = uiElementFactory.CreateInventorySlot(gridLayoutGroup.GetComponent<RectTransform>());
+            inventorySlots[i] = slot;
+        }
+
         StartCoroutine(SetScrollbarCoroutine());
     }
 

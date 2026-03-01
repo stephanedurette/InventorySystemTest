@@ -1317,9 +1317,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 388962c2dcf47e147a17537e069f4845, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiFactory: {fileID: 674650061}
   playerInventoryPosition: {fileID: 2028424113}
   NpcInventoryPosition: {fileID: 828564114}
+  playerInventoryModel: {fileID: 11400000, guid: 5c371a293a74c934fb10003f8ed4d378, type: 2}
+  npcInventoryModel: {fileID: 11400000, guid: 206e6f856d0867341b1141305697f533, type: 2}
 --- !u!1 &2141543396
 GameObject:
   m_ObjectHideFlags: 0
