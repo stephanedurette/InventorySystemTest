@@ -1,2 +1,1 @@
-Dynamically Initalize inventory slots
-fill the inventory with items
+Create test UI to test dynamic addition and subtraction of items
