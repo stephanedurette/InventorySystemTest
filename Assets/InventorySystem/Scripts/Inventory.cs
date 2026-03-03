@@ -19,7 +19,7 @@ public class Inventory
         items = new Item[Model.Size];
     }
 
-    public void AddItem(ItemModel itemModel, int amount)
+    public bool TryAddItem(ItemModel itemModel, int amount)
     {
         int remainingAmountToAdd = Math.Min(amount, Model.MaxItemCount - GetTotalItemCount(itemModel));
 
@@ -28,11 +28,11 @@ public class Inventory
             foreach (var index in indices)
             {
                 int amountToAdd = Math.Min(Model.MaxStackCount - items[index].Count, remainingAmountToAdd);
-                AddItem(itemModel, amountToAdd, index);
+                TryAddItem(itemModel, amountToAdd, index);
                 remainingAmountToAdd -= amountToAdd;
 
                 if (remainingAmountToAdd == 0)
-                    return;
+                    return true;
             }
         }
 
@@ -41,10 +41,12 @@ public class Inventory
             if (GetNextEmptyPosition(out int index))
             {
                 int amountToAdd = Math.Min(Model.MaxStackCount, remainingAmountToAdd);
-                AddItem(itemModel, amountToAdd, index);
+                TryAddItem(itemModel, amountToAdd, index);
                 remainingAmountToAdd -= amountToAdd;
             }
         }
+
+        return true;
     }
 
     public void RemoveItem(ItemModel itemModel, int amount)
@@ -65,7 +67,7 @@ public class Inventory
         }
     }
 
-    public void AddItem(ItemModel itemModel, int amount, int index)
+    public bool TryAddItem(ItemModel itemModel, int amount, int index)
     {
         if (items[index] == null)
         {
@@ -78,8 +80,13 @@ public class Inventory
         else
         {
             int amountToAdd = Math.Min(amount, Model.MaxStackCount - items[index].Count);
+
+            if (amountToAdd == 0 || items[index].Model != itemModel) return false;
+
             items[index].Count += amountToAdd;
         }
+
+        return true;
     }
 
     public void RemoveItem(int amount, int index)
