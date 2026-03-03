@@ -1,1 +1,1 @@
-hook up subtractions from test menu
+item removal should start at the lowest amount stack until only full stacks remain, then the highest index stack

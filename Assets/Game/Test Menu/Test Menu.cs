@@ -67,7 +67,14 @@ public class TestMenu : MonoBehaviour
 
     public void OnRemoveItemClicked()
     {
-
+        if (indexSelectDropdown.value == 0)
+        {
+            inventorySelectContent[inventorySelectDropdown.value].Inventory.RemoveItem(itemSelectContent[itemSelectDropdown.value], (int)itemAmountSlider.value);
+        }
+        else
+        {
+            inventorySelectContent[inventorySelectDropdown.value].Inventory.RemoveItem((int)itemAmountSlider.value, indexSelectDropdown.value - 1);
+        }
     }
 
     public void OnItemNumberSliderValueChanged(float value)

@@ -50,7 +50,7 @@ public class InventoryView : MonoBehaviour
 
     private void OnItemRemoved(int index)
     {
-
+        inventorySlots[index].Unbind();
     }
 
     private void CleanupWindow()
