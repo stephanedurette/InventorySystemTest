@@ -2693,6 +2693,7 @@ MonoBehaviour:
   itemCountLabel: {fileID: 983440902}
   itemSelectContent:
   - {fileID: 11400000, guid: d0cabd875d269a64e81902598a6f02fe, type: 2}
+  - {fileID: 11400000, guid: 6e8fc26c3193dfb449e2615fd4c8baa5, type: 2}
   inventorySelectContent:
   - {fileID: 2004846699}
   - {fileID: 1415641726}

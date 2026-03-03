@@ -73,7 +73,7 @@ public class TestMenu : MonoBehaviour
         }
         else
         {
-            inventorySelectContent[inventorySelectDropdown.value].Inventory.RemoveItem((int)itemAmountSlider.value, indexSelectDropdown.value - 1);
+            inventorySelectContent[inventorySelectDropdown.value].Inventory.RemoveItem(itemSelectContent[itemSelectDropdown.value], (int)itemAmountSlider.value, indexSelectDropdown.value - 1);
         }
     }
 

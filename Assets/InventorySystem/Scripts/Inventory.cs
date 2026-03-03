@@ -62,7 +62,7 @@ public class Inventory
         foreach (var index in partiallyFullStacks)
         {
             int amountToRemove = Math.Min(items[index].Count, remainingAmountToRemove);
-            RemoveItem(amountToRemove, index);
+            RemoveItem(itemModel, amountToRemove, index);
             remainingAmountToRemove -= amountToRemove;
 
             if (remainingAmountToRemove == 0)
@@ -72,7 +72,7 @@ public class Inventory
         foreach (var index in fullStacks)
         {
             int amountToRemove = Math.Min(items[index].Count, remainingAmountToRemove);
-            RemoveItem(amountToRemove, index);
+            RemoveItem(itemModel, amountToRemove, index);
             remainingAmountToRemove -= amountToRemove;
 
             if (remainingAmountToRemove == 0)
@@ -103,8 +103,10 @@ public class Inventory
         return true;
     }
 
-    public void RemoveItem(int amount, int index)
+    public void RemoveItem(ItemModel itemModel, int amount, int index)
     {
+        if (items[index] == null || items[index].Model != itemModel) return;
+
         items[index].Count -= amount;
         if (items[index].Count <= 0)
         {
