@@ -44,7 +44,7 @@ public class TestMenu : MonoBehaviour
     private void InitializeIndexSelectDropdownContent()
     {
         indexSelectDropdown.options.Add(new("First Available"));
-        for (int i = 1; i <= maxInventorySelectIndex; i++)
+        for (int i = 0; i < maxInventorySelectIndex; i++)
             indexSelectDropdown.options.Add(new(i.ToString()));
     }
 

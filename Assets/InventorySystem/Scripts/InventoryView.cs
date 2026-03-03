@@ -44,7 +44,8 @@ public class InventoryView : MonoBehaviour
 
     private void OnItemAdded(int index, Item item)
     {
-
+        ItemView newItemView = uiElementFactory.CreateItemView(item);
+        inventorySlots[index].Bind(newItemView);
     }
 
     private void OnItemRemoved(int index)
