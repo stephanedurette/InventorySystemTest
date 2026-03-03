@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
 
         for(int i = 0; i < playerStartingItems.Length; i++) {
             if (playerStartingItems[i].IsEmpty) continue;
-            playerInventory.AddItem(playerStartingItems[i].Model, playerStartingItems[i].Count, i);
+            playerInventory.TryAddItem(playerStartingItems[i].Model, playerStartingItems[i].Count, i);
         }
     }
 

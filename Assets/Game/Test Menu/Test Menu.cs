@@ -57,11 +57,11 @@ public class TestMenu : MonoBehaviour
     {
         if (indexSelectDropdown.value == 0)
         {
-            inventorySelectContent[inventorySelectDropdown.value].Inventory.AddItem(itemSelectContent[itemSelectDropdown.value], (int)itemAmountSlider.value);
+            inventorySelectContent[inventorySelectDropdown.value].Inventory.TryAddItem(itemSelectContent[itemSelectDropdown.value], (int)itemAmountSlider.value);
         }
         else
         {
-            inventorySelectContent[inventorySelectDropdown.value].Inventory.AddItem(itemSelectContent[itemSelectDropdown.value], (int)itemAmountSlider.value, indexSelectDropdown.value - 1);
+            inventorySelectContent[inventorySelectDropdown.value].Inventory.TryAddItem(itemSelectContent[itemSelectDropdown.value], (int)itemAmountSlider.value, indexSelectDropdown.value - 1);
         }
     }
 

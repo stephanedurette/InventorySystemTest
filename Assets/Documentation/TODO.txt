@@ -1,1 +1,3 @@
-Create test UI to test dynamic addition and subtraction of items
+Adding new items to empty slots needs to auto refresh an open inventory
+
+hook up subtractions from test menu

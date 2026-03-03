@@ -36,7 +36,7 @@ public class InventoryHolder : MonoBehaviour
         for (int i = 0; i < startingItems.Length; i++)
         {
             if (startingItems[i].IsEmpty) continue;
-            inventory.AddItem(startingItems[i].Model, startingItems[i].Count, i);
+            inventory.TryAddItem(startingItems[i].Model, startingItems[i].Count, i);
         }
     }
 
