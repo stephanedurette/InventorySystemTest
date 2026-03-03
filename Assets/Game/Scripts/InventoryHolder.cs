@@ -19,6 +19,8 @@ public class InventoryHolder : MonoBehaviour
 
     private Inventory inventory;
 
+    public Inventory Inventory => inventory;
+
     private UIElementFactory uiFactory;
 
     [Inject]

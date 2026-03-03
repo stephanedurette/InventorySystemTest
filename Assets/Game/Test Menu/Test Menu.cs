@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 public class TestMenu : MonoBehaviour
 {
@@ -45,7 +44,7 @@ public class TestMenu : MonoBehaviour
     private void InitializeIndexSelectDropdownContent()
     {
         indexSelectDropdown.options.Add(new("First Available"));
-        for(int i = 1; i <= maxInventorySelectIndex; i++)
+        for (int i = 1; i <= maxInventorySelectIndex; i++)
             indexSelectDropdown.options.Add(new(i.ToString()));
     }
 
@@ -56,7 +55,14 @@ public class TestMenu : MonoBehaviour
 
     public void OnAddItemClicked()
     {
-
+        if (indexSelectDropdown.value == 0)
+        {
+            inventorySelectContent[inventorySelectDropdown.value].Inventory.AddItem(itemSelectContent[itemSelectDropdown.value], (int)itemAmountSlider.value);
+        }
+        else
+        {
+            inventorySelectContent[inventorySelectDropdown.value].Inventory.AddItem(itemSelectContent[itemSelectDropdown.value], (int)itemAmountSlider.value, indexSelectDropdown.value - 1);
+        }
     }
 
     public void OnRemoveItemClicked()
