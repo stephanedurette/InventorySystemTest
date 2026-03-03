@@ -10,9 +10,26 @@ public class Inventory
 
     public Action<int, Item> OnItemAdded;
 
+    public static Action<Item> OnDraggedItemChanged;
+
+    public static Action OnDraggedItemCleared;
+
     private Item[] items;
 
     public Item[] Items => items;
+
+    private static Item draggedItem;
+
+    public static Item DraggedItem
+    {
+        get { return draggedItem; }
+        set { 
+            if (draggedItem == value) return;
+            draggedItem = value;
+            if (draggedItem == null) OnDraggedItemCleared?.Invoke();
+            if (draggedItem != null) OnDraggedItemChanged?.Invoke(draggedItem);
+        }
+    }
 
     public Inventory(InventoryModel model)
     {
