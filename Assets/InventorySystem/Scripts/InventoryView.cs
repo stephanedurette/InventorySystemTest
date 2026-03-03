@@ -101,14 +101,17 @@ public class InventoryView : MonoBehaviour
         {
             var slot = uiElementFactory.CreateInventorySlot(gridLayoutGroup.transform as RectTransform);
             inventorySlots[i] = slot;
-            SortInventorySlotsAccordingToIndex();
         }
+
+        SortInventorySlotsAccordingToIndex();
     }
 
     private void SortInventorySlotsAccordingToIndex()
     {
-        //need to make sure to sort the slots according to their index 
-
+        for(int i = 0; i < inventorySlots.Length; i++)
+        {
+            (inventorySlots[i].transform as RectTransform).SetSiblingIndex(i);
+        }
     }
 
     private void OnDisable()
