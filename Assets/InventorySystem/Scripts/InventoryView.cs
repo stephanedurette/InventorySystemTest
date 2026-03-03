@@ -78,7 +78,8 @@ public class InventoryView : MonoBehaviour
 
             if (item == null) continue;
 
-            ItemView newItemView = uiElementFactory.CreateItemView(slot.ItemParentTransform, item);
+            ItemView newItemView = uiElementFactory.CreateItemView(item);
+            slot.Bind(newItemView);
         }
     }
 
@@ -100,7 +101,14 @@ public class InventoryView : MonoBehaviour
         {
             var slot = uiElementFactory.CreateInventorySlot(gridLayoutGroup.transform as RectTransform);
             inventorySlots[i] = slot;
+            SortInventorySlotsAccordingToIndex();
         }
+    }
+
+    private void SortInventorySlotsAccordingToIndex()
+    {
+        //need to make sure to sort the slots according to their index 
+
     }
 
     private void OnDisable()
