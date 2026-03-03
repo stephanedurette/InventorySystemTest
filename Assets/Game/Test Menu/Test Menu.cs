@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class TestMenu : MonoBehaviour
 {
@@ -10,14 +11,47 @@ public class TestMenu : MonoBehaviour
     [SerializeField] private TMP_Dropdown itemSelectDropdown;
     [SerializeField] private TMP_Dropdown indexSelectDropdown;
     [SerializeField] private Slider itemAmountSlider;
+    [SerializeField] private TextMeshProUGUI itemCountLabel;
 
     [Header("Settings")]
     [SerializeField] private List<ItemModel> itemSelectContent;
     [SerializeField] private List<InventoryHolder> inventorySelectContent;
+    [SerializeField] private int maxInventorySelectIndex;
+
+    private void Awake()
+    {
+        InitializeItemDropdownContent();
+        InitializeInventoryDropdownContent();
+        InitializeIndexSelectDropdownContent();
+
+        OnItemNumberSliderValueChanged(0);
+    }
+
+    private void InitializeItemDropdownContent()
+    {
+        foreach (var item in itemSelectContent)
+        {
+            itemSelectDropdown.options.Add(new(item.name));
+        }
+    }
+    private void InitializeInventoryDropdownContent()
+    {
+        foreach (var item in inventorySelectContent)
+        {
+            inventorySelectDropdown.options.Add(new(item.name));
+        }
+    }
+
+    private void InitializeIndexSelectDropdownContent()
+    {
+        indexSelectDropdown.options.Add(new("First Available"));
+        for(int i = 1; i <= maxInventorySelectIndex; i++)
+            indexSelectDropdown.options.Add(new(i.ToString()));
+    }
 
     public void OnOpenInventoryClicked()
     {
-
+        inventorySelectContent[inventorySelectDropdown.value].OpenInventory();
     }
 
     public void OnAddItemClicked()
@@ -28,5 +62,10 @@ public class TestMenu : MonoBehaviour
     public void OnRemoveItemClicked()
     {
 
+    }
+
+    public void OnItemNumberSliderValueChanged(float value)
+    {
+        itemCountLabel.text = value.ToString();
     }
 }
