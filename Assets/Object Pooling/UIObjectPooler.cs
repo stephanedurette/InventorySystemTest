@@ -38,7 +38,6 @@ public class UIObjectPooler : MonoBehaviour
         {
             PoolableObject poolable = spawnedObject.AddComponent<PoolableObject>();
             poolable.Pool = objectPools[objectToSpawn];
-            //poolable.ParentReturnTransform = uiParentTransform;
         }
 
         return spawnedObject.GetComponent<T>();

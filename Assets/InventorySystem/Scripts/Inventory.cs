@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public class Inventory
 {
@@ -53,18 +54,31 @@ public class Inventory
     {
         int remainingAmountToRemove = amount;
 
-        if (GetItemIndices(itemModel, out var indices))
-        {
-            foreach (var index in indices)
-            {
-                int amountToRemove = Math.Min(items[index].Count, remainingAmountToRemove);
-                RemoveItem(amountToRemove, index);
-                remainingAmountToRemove -= amountToRemove;
+        GetItemIndices(itemModel, out List<int> itemIndices);
 
-                if (remainingAmountToRemove == 0)
-                    return;
-            }
+        var partiallyFullStacks = itemIndices.Where(index => items[index].Count < Model.MaxStackCount).OrderBy(index => items[index].Count).ToList();
+        var fullStacks = itemIndices.Where(index => items[index].Count == Model.MaxStackCount).OrderByDescending(i => i).ToList();
+
+        foreach (var index in partiallyFullStacks)
+        {
+            int amountToRemove = Math.Min(items[index].Count, remainingAmountToRemove);
+            RemoveItem(amountToRemove, index);
+            remainingAmountToRemove -= amountToRemove;
+
+            if (remainingAmountToRemove == 0)
+                return;
         }
+
+        foreach (var index in fullStacks)
+        {
+            int amountToRemove = Math.Min(items[index].Count, remainingAmountToRemove);
+            RemoveItem(amountToRemove, index);
+            remainingAmountToRemove -= amountToRemove;
+
+            if (remainingAmountToRemove == 0)
+                return;
+        }
+
     }
 
     public bool TryAddItem(ItemModel itemModel, int amount, int index)

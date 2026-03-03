@@ -1,1 +1,1 @@
-item removal should start at the lowest amount stack until only full stacks remain, then the highest index stack
+item dragging and dropping
