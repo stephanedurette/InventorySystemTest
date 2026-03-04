@@ -6,6 +6,8 @@ public class Item
 
     public ItemModel Model { get; private set; }
 
+    public Inventory Owner {  get; private set; }
+
     private int count;
 
     public int Count
@@ -14,8 +16,9 @@ public class Item
         set { if (count == value) return; int previousCount = count; count = value; OnCountChanged?.Invoke(previousCount, count); }
     }
 
-    public Item(ItemModel model)
+    public Item(ItemModel model, Inventory owner)
     {
         Model = model;
+        Owner = owner;
     }
 }

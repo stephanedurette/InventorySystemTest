@@ -102,7 +102,7 @@ public class Inventory
     {
         if (items[index] == null)
         {
-            Item newItem = new Item(itemModel);
+            Item newItem = new Item(itemModel, this);
             newItem.OnCountChanged += OnItemCountChanged;
             newItem.Count = Math.Min(amount, Model.MaxStackCount);
             items[index] = newItem;

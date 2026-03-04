@@ -125,15 +125,13 @@ public class InventoryView : MonoBehaviour
         Inventory.DraggedItem = inventorySlots[slotIndex].BoundItemView.BoundItem;
     }
 
-    private void OnSlotMouseUp(int slotIndex)
+    private void OnSlotMouseUp(int previousSlotIndex, int currentSlotIndex)
     {
-        Debug.Log(slotIndex);
+        //Debug.Log(slotIndex);
 
-        if (CurrentHoveredInventorySlot != null) {
-            //Debug.Log("released over slot");
-        } else
+        if (BoundInventory.TryAddItem(Inventory.DraggedItem.Model, Inventory.DraggedItem.Count, currentSlotIndex))
         {
-            //Debug.Log("released over nothing");
+            Inventory.DraggedItem.Owner.RemoveItem(Inventory.DraggedItem.Model, Inventory.DraggedItem.Count, previousSlotIndex);
         }
 
         Inventory.DraggedItem = null;

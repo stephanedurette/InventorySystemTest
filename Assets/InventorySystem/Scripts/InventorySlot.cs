@@ -13,7 +13,7 @@ public class InventorySlot : MonoBehaviour
     public ItemView BoundItemView => boundItemView;
 
     public Action<int> OnMouseDown;
-    public Action<int> OnMouseUp;
+    public Action<int ,int> OnMouseUp;
     public Action<int> OnMouseEnter;
     public Action<int> OnMouseExit;
 
@@ -34,7 +34,7 @@ public class InventorySlot : MonoBehaviour
     {
         if (ListContainsComponent((eventData as PointerEventData).hovered, out InventorySlot inventorySlot))
         {
-            OnMouseUp?.Invoke(inventorySlot.Index);
+            OnMouseUp?.Invoke(Index, inventorySlot.Index);
         }
     }
 
