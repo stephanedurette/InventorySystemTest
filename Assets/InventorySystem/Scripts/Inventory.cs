@@ -100,6 +100,8 @@ public class Inventory
 
     public bool TryAddItem(ItemModel itemModel, int amount, int index)
     {
+        if (amount == 0) return false;
+
         if (items[index] == null)
         {
             Item newItem = new Item(itemModel, this);

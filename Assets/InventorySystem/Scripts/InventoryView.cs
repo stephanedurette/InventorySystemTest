@@ -58,7 +58,7 @@ public class InventoryView : MonoBehaviour
         {
             slot.gameObject.SetActive(false);
             slot.OnMouseDown -= OnSlotMouseDown;
-            slot.OnMouseUp -= OnSlotMouseUp;
+            slot.OnMouseUpOverSlot -= OnSlotMouseUp;
             slot.OnMouseEnter -= OnSlotPointerEnter;
             slot.OnMouseExit -= OnSlotPointerExit;
         }
@@ -106,7 +106,7 @@ public class InventoryView : MonoBehaviour
             var slot = uiElementFactory.CreateInventorySlot(gridLayoutGroup.transform as RectTransform, BoundInventory);
 
             slot.OnMouseDown += OnSlotMouseDown;
-            slot.OnMouseUp += OnSlotMouseUp;
+            slot.OnMouseUpOverSlot += OnSlotMouseUp;
             slot.OnMouseEnter += OnSlotPointerEnter;
             slot.OnMouseExit += OnSlotPointerExit;
 
