@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Zenject;
 
@@ -16,6 +17,8 @@ public class InventoryView : MonoBehaviour
     private InventorySlot[] inventorySlots;
 
     internal static InventorySlot CurrentHoveredInventorySlot { get; private set; }
+
+    private Vector2 pointerOffset;
 
     [Inject]
     public void Construct(UIElementFactory uIElementFactory)
@@ -121,6 +124,21 @@ public class InventoryView : MonoBehaviour
         if (inventorySlots[slotIndex].BoundItemView == null) return;
 
         Inventory.DraggedItem = inventorySlots[slotIndex].BoundItemView.BoundItem;
+    }
+
+    public void OnPointerDown(BaseEventData eventData)
+    {
+        pointerOffset = (eventData as PointerEventData).position - (Vector2)transform.position;
+    }
+    public void OnPointerUp(BaseEventData eventData)
+    {
+        Debug.Log("Pointer Up");
+    }
+
+    public void OnDrag(BaseEventData eventData)
+    {
+        Debug.Log((eventData as PointerEventData).position);
+        transform.position = (eventData as PointerEventData).position - pointerOffset;
     }
 
     private void OnSlotMouseUp(InventorySlot previousSlot, InventorySlot hoveredSlot)
