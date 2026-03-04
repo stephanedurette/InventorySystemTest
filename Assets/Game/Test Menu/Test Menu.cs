@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -15,15 +16,16 @@ public class TestMenu : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private List<ItemModel> itemSelectContent;
     [SerializeField] private List<InventoryHolder> inventorySelectContent;
-    [SerializeField] private int maxInventorySelectIndex;
 
-    private void Awake()
+    private void Start()
     {
         InitializeItemDropdownContent();
         InitializeInventoryDropdownContent();
-        InitializeIndexSelectDropdownContent();
 
-        OnItemNumberSliderValueChanged(0);
+        inventorySelectDropdown.value = 1;
+        itemSelectDropdown.value = 1;
+        indexSelectDropdown.value = 1;
+        itemAmountSlider.value = 1;
     }
 
     private void InitializeItemDropdownContent()
@@ -41,10 +43,11 @@ public class TestMenu : MonoBehaviour
         }
     }
 
-    private void InitializeIndexSelectDropdownContent()
+    private void InitializeIndexSelectDropdownContent(int maxIndex)
     {
+        indexSelectDropdown.ClearOptions();
         indexSelectDropdown.options.Add(new("First Available"));
-        for (int i = 0; i < maxInventorySelectIndex; i++)
+        for (int i = 0; i < maxIndex; i++)
             indexSelectDropdown.options.Add(new(i.ToString()));
     }
 
@@ -80,5 +83,12 @@ public class TestMenu : MonoBehaviour
     public void OnItemNumberSliderValueChanged(float value)
     {
         itemCountLabel.text = value.ToString();
+    }
+
+    public void OnInventorySelectChanged(int newIndex)
+    {
+        InitializeIndexSelectDropdownContent(inventorySelectContent[newIndex].Inventory.Model.Size);
+
+        indexSelectDropdown.value = 1;
     }
 }

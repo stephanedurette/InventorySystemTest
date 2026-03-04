@@ -6,7 +6,6 @@ using Zenject;
 public class InventoryView : MonoBehaviour
 {
     [Header("References")]
-    //[SerializeField] private UIElementFactory uiElementFactory;
     [SerializeField] private GridLayoutGroup gridLayoutGroup;
     [SerializeField] private Scrollbar scrollbar;
 
@@ -119,7 +118,6 @@ public class InventoryView : MonoBehaviour
 
     private void OnSlotMouseDown(int slotIndex)
     {
-        Debug.Log(slotIndex);
         if (inventorySlots[slotIndex].BoundItemView == null) return;
 
         Inventory.DraggedItem = inventorySlots[slotIndex].BoundItemView.BoundItem;
@@ -127,6 +125,8 @@ public class InventoryView : MonoBehaviour
 
     private void OnSlotMouseUp(InventorySlot previousSlot, InventorySlot hoveredSlot)
     {
+        if(Inventory.DraggedItem == null) return;
+
         if (previousSlot == hoveredSlot)
         {
             Inventory.DraggedItem = null;
