@@ -1,11 +1,21 @@
+using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using System.Collections.Generic;
 
-public class InventorySlot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+public class InventorySlot : MonoBehaviour
 {
     [SerializeField] private RectTransform itemParentTransform;
 
     private ItemView boundItemView;
+
+    public ItemView BoundItemView => boundItemView;
+
+    public Action<int> OnMouseDown;
+    public Action<int> OnMouseUp;
+    public Action<int> OnMouseEnter;
+    public Action<int> OnMouseExit;
 
     public int Index => transform.GetSiblingIndex();
 
@@ -15,18 +25,41 @@ public class InventorySlot : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
         (boundItemView.transform as RectTransform).SetParent(itemParentTransform, false);   
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    public void OnPointerDown(BaseEventData eventData)
     {
-        Debug.Log("f");
-        //set dragged inventory item to bound item
+        OnMouseDown?.Invoke(Index);
     }
 
-    public void OnPointerUp(PointerEventData eventData)
+    public void OnPointerUp(BaseEventData eventData)
     {
-        Debug.Log("f");
-        //if dragged item and if this inventory is different than the dragged item's inventory
-            //remove the dragged item from that item's inventory
-            //add it to this slot's inventory at this slot's index
+        if (ListContainsComponent((eventData as PointerEventData).hovered, out InventorySlot inventorySlot))
+        {
+            OnMouseUp?.Invoke(inventorySlot.Index);
+        }
+    }
+
+    private bool ListContainsComponent<T>(List<GameObject> list, out T component) where T : Component
+    {
+        foreach(var item in list)
+        {
+            if (item.TryGetComponent(out T t))
+            {
+                component = t;
+                return true;
+            }
+        }
+        component = null;
+        return false;
+    }
+
+    public void OnPointerEnter(BaseEventData eventData)
+    {
+        OnMouseEnter?.Invoke(Index);
+    }
+
+    public void OnPointerExit(BaseEventData eventData)
+    {
+        OnMouseExit?.Invoke(Index);
     }
 
     public void Unbind()

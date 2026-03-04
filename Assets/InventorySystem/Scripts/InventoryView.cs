@@ -16,6 +16,8 @@ public class InventoryView : MonoBehaviour
 
     private InventorySlot[] inventorySlots;
 
+    internal static InventorySlot CurrentHoveredInventorySlot { get; private set; }
+
     [Inject]
     public void Construct(UIElementFactory uIElementFactory)
     {
@@ -37,8 +39,6 @@ public class InventoryView : MonoBehaviour
             BoundInventory.OnItemAdded -= OnItemAdded;
             BoundInventory.OnItemRemoved -= OnItemRemoved;
             BoundInventory = null;
-
-            CleanupWindow();
         }
     }
 
@@ -53,11 +53,15 @@ public class InventoryView : MonoBehaviour
         inventorySlots[index].Unbind();
     }
 
-    private void CleanupWindow()
+    private void CleanupSlots()
     {
         foreach (var slot in inventorySlots)
         {
             slot.gameObject.SetActive(false);
+            slot.OnMouseDown -= OnSlotMouseDown;
+            slot.OnMouseUp -= OnSlotMouseUp;
+            slot.OnMouseEnter -= OnSlotPointerEnter;
+            slot.OnMouseExit -= OnSlotPointerExit;
         }
     }
 
@@ -101,10 +105,48 @@ public class InventoryView : MonoBehaviour
         for (int i = 0; i < BoundInventory.Model.Size; i++)
         {
             var slot = uiElementFactory.CreateInventorySlot(gridLayoutGroup.transform as RectTransform);
+
+            slot.OnMouseDown += OnSlotMouseDown;
+            slot.OnMouseUp += OnSlotMouseUp;
+            slot.OnMouseEnter += OnSlotPointerEnter;
+            slot.OnMouseExit += OnSlotPointerExit;
+
             inventorySlots[i] = slot;
         }
 
         SortInventorySlotsAccordingToIndex();
+    }
+
+    private void OnSlotMouseDown(int slotIndex)
+    {
+        Debug.Log(slotIndex);
+        if (inventorySlots[slotIndex].BoundItemView == null) return;
+
+        Inventory.DraggedItem = inventorySlots[slotIndex].BoundItemView.BoundItem;
+    }
+
+    private void OnSlotMouseUp(int slotIndex)
+    {
+        Debug.Log(slotIndex);
+
+        if (CurrentHoveredInventorySlot != null) {
+            //Debug.Log("released over slot");
+        } else
+        {
+            //Debug.Log("released over nothing");
+        }
+
+        Inventory.DraggedItem = null;
+    }
+
+    private void OnSlotPointerEnter(int slotIndex)
+    {
+        CurrentHoveredInventorySlot = inventorySlots[slotIndex];
+    }
+
+    private void OnSlotPointerExit(int slotIndex)
+    {
+        CurrentHoveredInventorySlot = null;
     }
 
     private void SortInventorySlotsAccordingToIndex()
@@ -118,5 +160,6 @@ public class InventoryView : MonoBehaviour
     private void OnDisable()
     {
         Unbind();
+        CleanupSlots();
     }
 }
