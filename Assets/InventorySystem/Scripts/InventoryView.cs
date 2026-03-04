@@ -104,7 +104,7 @@ public class InventoryView : MonoBehaviour
         inventorySlots = new InventorySlot[BoundInventory.Model.Size];
         for (int i = 0; i < BoundInventory.Model.Size; i++)
         {
-            var slot = uiElementFactory.CreateInventorySlot(gridLayoutGroup.transform as RectTransform);
+            var slot = uiElementFactory.CreateInventorySlot(gridLayoutGroup.transform as RectTransform, BoundInventory);
 
             slot.OnMouseDown += OnSlotMouseDown;
             slot.OnMouseUp += OnSlotMouseUp;
@@ -125,13 +125,17 @@ public class InventoryView : MonoBehaviour
         Inventory.DraggedItem = inventorySlots[slotIndex].BoundItemView.BoundItem;
     }
 
-    private void OnSlotMouseUp(int previousSlotIndex, int currentSlotIndex)
+    private void OnSlotMouseUp(InventorySlot previousSlot, InventorySlot hoveredSlot)
     {
-        //Debug.Log(slotIndex);
-
-        if (BoundInventory.TryAddItem(Inventory.DraggedItem.Model, Inventory.DraggedItem.Count, currentSlotIndex))
+        if (previousSlot == hoveredSlot)
         {
-            Inventory.DraggedItem.Owner.RemoveItem(Inventory.DraggedItem.Model, Inventory.DraggedItem.Count, previousSlotIndex);
+            Inventory.DraggedItem = null;
+            return;
+        }
+
+        if (hoveredSlot.Owner.TryAddItem(Inventory.DraggedItem.Model, Inventory.DraggedItem.Count, hoveredSlot.Index))
+        {
+            Inventory.DraggedItem.Owner.RemoveItem(Inventory.DraggedItem.Model, Inventory.DraggedItem.Count, previousSlot.Index);
         }
 
         Inventory.DraggedItem = null;

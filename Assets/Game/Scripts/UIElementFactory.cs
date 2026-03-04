@@ -24,9 +24,11 @@ public class UIElementFactory : MonoBehaviour
         return obj;
     }
 
-    public InventorySlot CreateInventorySlot(RectTransform parent)
+    public InventorySlot CreateInventorySlot(RectTransform parent, Inventory owner)
     {
-        return pooler.SpawnObject<InventorySlot>(inventorySlotPrefab, Vector2.zero, parent);
+        var obj = pooler.SpawnObject<InventorySlot>(inventorySlotPrefab, Vector2.zero, parent);
+        obj.Owner = owner;
+        return obj;
     }
 
     public ItemView CreateItemView(Item boundItem)
