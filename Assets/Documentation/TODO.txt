@@ -1,1 +1,3 @@
 when the item is different, swap items
+item count shown on inventory
+inventory name shown on top
