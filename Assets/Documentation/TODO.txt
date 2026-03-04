@@ -1,2 +1,1 @@
-when adding item to a full stack, put the remainder back in the previous inventory
 when the item is different, swap items

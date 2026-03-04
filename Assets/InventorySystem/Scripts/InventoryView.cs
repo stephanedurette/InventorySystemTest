@@ -137,7 +137,6 @@ public class InventoryView : MonoBehaviour
 
     public void OnDrag(BaseEventData eventData)
     {
-        Debug.Log((eventData as PointerEventData).position);
         transform.position = (eventData as PointerEventData).position - pointerOffset;
     }
 
@@ -151,10 +150,13 @@ public class InventoryView : MonoBehaviour
             return;
         }
 
-        if (hoveredSlot.Owner.TryAddItem(Inventory.DraggedItem.Model, Inventory.DraggedItem.Count, hoveredSlot.Index))
-        {
-            Inventory.DraggedItem.Owner.RemoveItem(Inventory.DraggedItem.Model, Inventory.DraggedItem.Count, previousSlot.Index);
+        if (previousSlot.Owner == hoveredSlot.Owner && previousSlot.Index == hoveredSlot.Index) { 
+            Inventory.DraggedItem = null;
+            return;
         }
+
+        int addedItems = hoveredSlot.Owner.TryAddItem(Inventory.DraggedItem.Model, Inventory.DraggedItem.Count, hoveredSlot.Index);
+        Inventory.DraggedItem.Owner.RemoveItem(Inventory.DraggedItem.Model, addedItems, previousSlot.Index);
 
         Inventory.DraggedItem = null;
     }

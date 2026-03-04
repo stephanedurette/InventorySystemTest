@@ -98,9 +98,9 @@ public class Inventory
 
     }
 
-    public bool TryAddItem(ItemModel itemModel, int amount, int index)
+    public int TryAddItem(ItemModel itemModel, int amount, int index)
     {
-        if (amount == 0) return false;
+        if (amount == 0) return 0;
 
         if (items[index] == null)
         {
@@ -109,17 +109,19 @@ public class Inventory
             newItem.Count = Math.Min(amount, Model.MaxStackCount);
             items[index] = newItem;
             OnItemAdded?.Invoke(index, newItem);
+
+            return Model.MaxStackCount;
         }
         else
         {
             int amountToAdd = Math.Min(amount, Model.MaxStackCount - items[index].Count);
 
-            if (amountToAdd == 0 || items[index].Model != itemModel) return false;
+            if (amountToAdd == 0 || items[index].Model != itemModel) return 0;
 
             items[index].Count += amountToAdd;
-        }
 
-        return true;
+            return amountToAdd;
+        }
     }
 
     public void RemoveItem(ItemModel itemModel, int amount, int index)
