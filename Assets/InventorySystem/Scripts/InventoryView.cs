@@ -150,7 +150,7 @@ public class InventoryView : MonoBehaviour
     }
     public void OnPointerUp(BaseEventData eventData)
     {
-        Debug.Log("Pointer Up");
+        
     }
 
     public void OnDrag(BaseEventData eventData)

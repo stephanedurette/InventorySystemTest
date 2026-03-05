@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -16,12 +15,10 @@ public class UIObjectPooler : MonoBehaviour
 
     public T SpawnObject<T>(GameObject objectToSpawn, Vector3 position, RectTransform parentTransform = null)
     {
-        GameObject objectSourcePrefab = PrefabUtility.GetCorrespondingObjectFromOriginalSource(objectToSpawn);
-
-        if (!objectPools.ContainsKey(objectSourcePrefab))
+        if (!objectPools.ContainsKey(objectToSpawn))
         {
             //Initialize Pool
-            objectPools.Add(objectSourcePrefab, InitializePool(objectSourcePrefab));
+            objectPools.Add(objectToSpawn, InitializePool(objectToSpawn));
         }
 
         //Spawn
