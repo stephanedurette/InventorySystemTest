@@ -1,5 +1,4 @@
-item count shown on inventory
-
 post it
+video + code
 
 DraggedItem reference should be in the inventory view not in the inventory controller

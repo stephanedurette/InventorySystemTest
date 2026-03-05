@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -11,6 +12,7 @@ public class InventoryView : MonoBehaviour
     [SerializeField] private GridLayoutGroup gridLayoutGroup;
     [SerializeField] private Scrollbar scrollbar;
     [SerializeField] private Text inventoryNameText;
+    [SerializeField] private Text inventoryCountLabel;
 
     public Inventory BoundInventory { get; private set; }
 
@@ -32,6 +34,11 @@ public class InventoryView : MonoBehaviour
     public void Construct(UIElementFactory uIElementFactory)
     {
         this.uiElementFactory = uIElementFactory;
+    }
+
+    private void UpdateInventoryCountLabel()
+    {
+        inventoryCountLabel.text = $"{BoundInventory.Items.Where(x => x != null).Count()} / {BoundInventory.Model.Size}";
     }
 
     public void Bind(Inventory inventory)
@@ -56,11 +63,13 @@ public class InventoryView : MonoBehaviour
     {
         ItemView newItemView = uiElementFactory.CreateItemView(item);
         inventorySlots[index].Bind(newItemView);
+        UpdateInventoryCountLabel();
     }
 
     private void OnItemRemoved(int index)
     {
         inventorySlots[index].Unbind();
+        UpdateInventoryCountLabel();
     }
 
     private void CleanupSlots()
@@ -80,6 +89,7 @@ public class InventoryView : MonoBehaviour
         SetGridCellSize();
         CreateInventorySlots();
         AssignItemsToSlots();
+        UpdateInventoryCountLabel();
 
         scrollbar.value = 1;
     }
