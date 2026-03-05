@@ -17,9 +17,10 @@ public class UIElementFactory : MonoBehaviour
         this.pooler = pooler;
     }
 
-    public InventoryView CreateInventoryWindow(Vector2 position, Inventory boundInventory)
+    public InventoryView CreateInventoryWindow(Vector2 position, Inventory boundInventory, string inventoryName)
     {
         var obj = pooler.SpawnObject<InventoryView>(inventoryViewPrefab, position);
+        obj.InventoryName = inventoryName;
         obj.Bind(boundInventory);
         return obj;
     }

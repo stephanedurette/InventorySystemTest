@@ -970,6 +970,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridLayoutGroup: {fileID: 7763747661124205886}
   scrollbar: {fileID: 789049713604666263}
+  inventoryNameText: {fileID: 307030299167646158}
 --- !u!114 &3437973186545974483
 MonoBehaviour:
   m_ObjectHideFlags: 0

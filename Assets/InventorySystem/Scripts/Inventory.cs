@@ -67,6 +67,21 @@ public class Inventory
         return true;
     }
 
+    public static void Swap(Inventory a, Inventory b, int aIndex, int bIndex)
+    {
+        Item tempItem = a.Items[aIndex];
+        a.ReplaceItem(b.items[bIndex].Model, b.items[bIndex].Count, aIndex);
+        b.ReplaceItem(tempItem.Model, tempItem.Count, bIndex);
+    }
+
+    public void ReplaceItem(ItemModel model, int amount, int index)
+    {
+        OnItemRemoved?.Invoke(index);
+        items[index] = new Item(model, this);
+        items[index].Count = amount;
+        OnItemAdded?.Invoke(index, items[index]);
+    }
+
     public void RemoveItem(ItemModel itemModel, int amount)
     {
         int remainingAmountToRemove = amount;

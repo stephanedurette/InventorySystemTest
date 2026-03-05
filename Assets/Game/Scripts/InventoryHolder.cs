@@ -7,6 +7,7 @@ public class InventoryHolder : MonoBehaviour
     [SerializeField] private StartingItem[] startingItems;
     [SerializeField] private InventoryModel inventoryModel;
     [SerializeField] private Transform inventoryPosition;
+    [SerializeField] private string inventoryName;
 
     [Serializable]
     private struct StartingItem
@@ -42,6 +43,6 @@ public class InventoryHolder : MonoBehaviour
 
     public void OpenInventory()
     {
-        uiFactory.CreateInventoryWindow(inventoryPosition.position, inventory);
+        uiFactory.CreateInventoryWindow(inventoryPosition.position, inventory, inventoryName);
     }
 }

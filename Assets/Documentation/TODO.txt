@@ -1,3 +1,5 @@
-when the item is different, swap items
 item count shown on inventory
-inventory name shown on top
+
+post it
+
+DraggedItem reference should be in the inventory view not in the inventory controller

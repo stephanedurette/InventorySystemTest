@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -9,6 +10,7 @@ public class InventoryView : MonoBehaviour
     [Header("References")]
     [SerializeField] private GridLayoutGroup gridLayoutGroup;
     [SerializeField] private Scrollbar scrollbar;
+    [SerializeField] private Text inventoryNameText;
 
     public Inventory BoundInventory { get; private set; }
 
@@ -19,6 +21,12 @@ public class InventoryView : MonoBehaviour
     internal static InventorySlot CurrentHoveredInventorySlot { get; private set; }
 
     private Vector2 pointerOffset;
+
+    public string InventoryName
+    {
+        get { return inventoryNameText.text; }
+        set { inventoryNameText.text = value; }
+    }
 
     [Inject]
     public void Construct(UIElementFactory uIElementFactory)
@@ -151,6 +159,13 @@ public class InventoryView : MonoBehaviour
         }
 
         if (previousSlot.Owner == hoveredSlot.Owner && previousSlot.Index == hoveredSlot.Index) { 
+            Inventory.DraggedItem = null;
+            return;
+        }
+
+        if (previousSlot.BoundItemView != null && hoveredSlot.BoundItemView != null && previousSlot.BoundItemView.BoundItem.Model != hoveredSlot.BoundItemView.BoundItem.Model)
+        {
+            Inventory.Swap(previousSlot.Owner, hoveredSlot.Owner, previousSlot.Index, hoveredSlot.Index);
             Inventory.DraggedItem = null;
             return;
         }

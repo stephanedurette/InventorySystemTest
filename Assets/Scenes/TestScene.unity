@@ -4613,6 +4613,7 @@ MonoBehaviour:
     Count: 2
   inventoryModel: {fileID: 11400000, guid: 206e6f856d0867341b1141305697f533, type: 2}
   inventoryPosition: {fileID: 1663154477}
+  inventoryName: NPC Inventory
 --- !u!1 &1458437296
 GameObject:
   m_ObjectHideFlags: 0
@@ -6286,6 +6287,7 @@ MonoBehaviour:
     Count: 4
   inventoryModel: {fileID: 11400000, guid: 5c371a293a74c934fb10003f8ed4d378, type: 2}
   inventoryPosition: {fileID: 1495805255}
+  inventoryName: Player Inventory
 --- !u!1 &2015973642
 GameObject:
   m_ObjectHideFlags: 0
